@@ -22,7 +22,7 @@ export const LinksTable: React.FC<Props> = ({ data }) => {
             data.length > 0 &&
             data.map((url, key) => {
               return (
-                <tr key={key}>
+                <tr key={key} className="hover">
                   <th>{key + 1}</th>
                   <td>
                     {url.url}
@@ -31,7 +31,7 @@ export const LinksTable: React.FC<Props> = ({ data }) => {
                       {url.active === true ? "Active" : "Inactive"}
                     </span>
                   </td>
-                  <td>{url.failing}</td>
+                  <td>{url.failing === true ? "Red" : "Green"}</td>
                   <td>{url.updated_at}</td>
                 </tr>
               );

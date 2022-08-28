@@ -17,7 +17,7 @@ const LinkIndexPage: NextPage = () => {
     { name: "URLs", link: "#" },
   ];
   const [loading, setLoading] = useState(false);
-  const [urlData, setUrls] = useState<IPaginatedUrls | null>(null);
+  const [urlData, setUrlData] = useState<IPaginatedUrls | null>(null);
   useEffect(() => {
     setLoading(true);
     fetchUrls();
@@ -25,7 +25,7 @@ const LinkIndexPage: NextPage = () => {
   }, []);
   const fetchUrls = async () => {
     const resp = await axios.get("http://localhost:8000/api/url");
-    resp.status === 200 && setUrls(resp.data.data);
+    resp.status === 200 && setUrlData(resp.data.data);
   };
   return (
     <Layout pageTitle="Your URL list" breadCrumbs={breadCrumbs}>
