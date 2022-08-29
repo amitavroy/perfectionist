@@ -26,7 +26,7 @@ export const TopNav = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link href="/links">
+              <Link href="/urls">
                 <a>Links</a>
               </Link>
             </li>

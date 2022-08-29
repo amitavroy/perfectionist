@@ -1,5 +1,6 @@
 import axios, { Axios } from "axios";
 import { NextPage } from "next";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IBreadcrumbLink } from "../../components/Breadcrumbs";
 import { Layout } from "../../components/Layout";
@@ -29,8 +30,15 @@ const LinkIndexPage: NextPage = () => {
   };
   return (
     <Layout pageTitle="Your URL list" breadCrumbs={breadCrumbs}>
-      <div>
-        <h1 className="text-4xl font-bold">My links</h1>
+      <div className="flex justify-between">
+        <div>
+          <h1 className="text-4xl font-bold">My URLs</h1>
+        </div>
+        <div>
+          <Link href="/urls/add">
+            <a className="btn btn-primary">Add new URL</a>
+          </Link>
+        </div>
       </div>
       {urlData !== null && (
         <div className="mt-4">
