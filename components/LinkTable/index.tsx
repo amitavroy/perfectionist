@@ -1,5 +1,6 @@
 import React from "react";
 import { IUrl } from "../../interfaces/models/url.interface";
+import { Badge } from "../Badge";
 
 interface Props {
   data: Array<IUrl>;
@@ -13,7 +14,7 @@ export const LinksTable: React.FC<Props> = ({ data }) => {
           <tr>
             <th></th>
             <th>URL</th>
-            <th>Failing</th>
+            <th>Status</th>
             <th>Last modified</th>
           </tr>
         </thead>
@@ -31,7 +32,13 @@ export const LinksTable: React.FC<Props> = ({ data }) => {
                       {url.active === true ? "Active" : "Inactive"}
                     </span>
                   </td>
-                  <td>{url.failing === true ? "Red" : "Green"}</td>
+                  <td>
+                    {url.failing === true ? (
+                      <Badge text="Red" badgeType="badge-secondary" />
+                    ) : (
+                      <Badge text="Green" badgeType="badge-accent" />
+                    )}
+                  </td>
                   <td>{url.updated_at}</td>
                 </tr>
               );
