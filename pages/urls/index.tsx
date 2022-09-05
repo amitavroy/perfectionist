@@ -24,10 +24,18 @@ const LinkIndexPage: NextPage = () => {
     fetchUrls();
     setLoading(false);
   }, []);
+
   const fetchUrls = async () => {
     const resp = await axios.get("http://localhost:8000/api/url");
     resp.status === 200 && setUrlData(resp.data.data);
   };
+
+  const deleteLink = async (url: IUrl) => {
+    const apiUrl = `http://localhost:8000/api/url/${url.id}`;
+    await axios.delete(apiUrl);
+    await fetchUrls();
+  };
+
   return (
     <Layout pageTitle="Your URL list" breadCrumbs={breadCrumbs}>
       <div className="flex justify-between">
@@ -42,7 +50,10 @@ const LinkIndexPage: NextPage = () => {
       </div>
       {urlData !== null && (
         <div className="mt-4">
-          <LinksTable data={urlData?.data} />
+          <LinksTable
+            data={urlData?.data}
+            onDelete={(url) => deleteLink(url)}
+          />
         </div>
       )}
     </Layout>
