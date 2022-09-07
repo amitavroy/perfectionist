@@ -5,7 +5,7 @@ export interface IPaginatedData {
   from: number;
   last_page: number;
   last_page_url: string;
-  links: Array<unknown>;
+  links: Array<{ active: boolean; url: string | null; label: number }>;
   next_page_url: string;
   path: string;
   per_page: number;

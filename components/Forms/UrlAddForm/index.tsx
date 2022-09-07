@@ -8,7 +8,11 @@ interface IValues {
   url: string;
 }
 
-export const UrlAddForm: React.FC = () => {
+interface Props {
+  onSuccess: () => void;
+}
+
+export const UrlAddForm: React.FC<Props> = ({ onSuccess }) => {
   const initialValues: IValues = {
     url: "",
   };
@@ -20,6 +24,7 @@ export const UrlAddForm: React.FC = () => {
       url: values.url,
     });
     resp.status === 201 && resetForm();
+    onSuccess();
   };
   return (
     <div>
