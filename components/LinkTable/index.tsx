@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import { IUrl } from "../../interfaces/models/url.interface";
 import { getLocalDate } from "../../services/utils.service";
@@ -47,6 +48,11 @@ export const LinksTable: React.FC<Props> = ({ data, onDelete }) => {
                   <td>{getLocalDate(url.updated_at)}</td>
                   <td>
                     <div className="flex">
+                      <div className="mr-2">
+                        <Link href={`/urls/view/${url.id}`}>
+                          <a className="btn btn-sm btn-square btn-accent">V</a>
+                        </Link>
+                      </div>
                       <div>
                         <label
                           htmlFor="delete-link"

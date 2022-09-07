@@ -25,7 +25,9 @@ const LinkIndexPage: NextPage = () => {
   const [urlData, setUrlData] = useState<IPaginatedUrls | null>(null);
 
   const fetchUrls = async () => {
-    const resp = await axios.get(`http://localhost:8000/api/url?page=${page}`);
+    const resp = await axios.get(
+      `http://192.168.1.233:8000/api/url?page=${page}`
+    );
     resp.status === 200 && setUrlData(resp.data.data);
   };
 
