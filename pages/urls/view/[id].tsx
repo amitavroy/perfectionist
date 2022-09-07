@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { IBreadcrumbLink } from "../../../components/Breadcrumbs";
 import { Layout } from "../../../components/Layout";
 import { IUrl } from "../../../interfaces/models/url.interface";
+import HttpService from "../../../services/http.services";
 import { getLocalDate } from "../../../services/utils.service";
 
 const UrlViewPage: NextPage = () => {
@@ -20,9 +21,7 @@ const UrlViewPage: NextPage = () => {
   const [url, setUrl] = useState<IUrl | null>(null);
 
   const fetchUrlDetails = async () => {
-    const resp = await axios.get(
-      `http://192.168.1.233:8000/api/url-failure/${id}`
-    );
+    const resp = await HttpService.get(`url-failure/${id}`);
     setUrl(resp.data.data);
   };
 

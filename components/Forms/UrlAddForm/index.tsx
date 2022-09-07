@@ -20,7 +20,7 @@ export const UrlAddForm: React.FC<Props> = ({ onSuccess }) => {
     values: IValues,
     { setSubmitting, resetForm }: FormikHelpers<IValues>
   ) => {
-    const resp = await HttpService.post("http://localhost:8000/api/url", {
+    const resp = await HttpService.post("url", {
       url: values.url,
     });
     resp.status === 201 && resetForm();

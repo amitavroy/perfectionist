@@ -9,6 +9,7 @@ import { LinksTable } from "../../components/LinkTable";
 import { Pagination } from "../../components/Pagination";
 import { IPaginatedData } from "../../interfaces/commons/paginate.interface";
 import { IUrl } from "../../interfaces/models/url.interface";
+import HttpService from "../../services/http.services";
 
 interface IPaginatedUrls extends IPaginatedData {
   data: Array<IUrl>;
@@ -25,15 +26,12 @@ const LinkIndexPage: NextPage = () => {
   const [urlData, setUrlData] = useState<IPaginatedUrls | null>(null);
 
   const fetchUrls = async () => {
-    const resp = await axios.get(
-      `http://192.168.1.233:8000/api/url?page=${page}`
-    );
+    const resp = await HttpService.get(`url?page=${page}`);
     resp.status === 200 && setUrlData(resp.data.data);
   };
 
   const deleteLink = async (url: IUrl) => {
-    const apiUrl = `http://localhost:8000/api/url/${url.id}`;
-    await axios.delete(apiUrl);
+    await HttpService.delete(`url/${url.id}`);
     await fetchUrls();
   };
 
