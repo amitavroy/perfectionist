@@ -3,6 +3,9 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { IBreadcrumbLink } from "../../../components/Breadcrumbs";
+import { Card } from "../../../components/commons/Card";
+import { Heading1 } from "../../../components/commons/Headings/Heading1";
+import { Heading2 } from "../../../components/commons/Headings/Heading2";
 import { Layout } from "../../../components/Layout";
 import { IUrl } from "../../../interfaces/models/url.interface";
 import HttpService from "../../../services/http.services";
@@ -31,18 +34,49 @@ const UrlViewPage: NextPage = () => {
 
   return (
     <Layout pageTitle="URL Details" breadCrumbs={breadCrumbs}>
-      <div className="w-1/2 shadow rounded p-10 bg-white">
-        {url != null && (
-          <React.Fragment>
-            <h2>Recent failures</h2>
-            <ul>
-              {url.failures?.map((fail, index) => {
-                return <li key={fail.id}>{getLocalDate(fail.created_at)}</li>;
-              })}
-            </ul>
-          </React.Fragment>
-        )}
+      <div className="mb-4">
+        <Heading1 text="URL details" />
       </div>
+      <div className="mb-4">
+        <Card>
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <p>
+                <strong>URL link:</strong> {url?.url}
+              </p>
+            </div>
+            <div>
+              <p>
+                <strong>URL status:</strong>{" "}
+                {url?.active ? "Active" : "Inactive"}
+              </p>
+            </div>
+            <div>
+              <p>
+                <strong>URL is failing:</strong> {url?.failing ? "Yes" : "No"}
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+      {url && url.failures && url.failures?.length > 0 && (
+        <div className="w-1/4">
+          <Card>
+            <React.Fragment>
+              <Heading2 text="Recent failures" />
+              <ul className="mt-4">
+                {url.failures?.map((fail, index) => {
+                  return (
+                    <li key={fail.id} className="mt-2">
+                      {getLocalDate(fail.created_at)}
+                    </li>
+                  );
+                })}
+              </ul>
+            </React.Fragment>
+          </Card>
+        </div>
+      )}
     </Layout>
   );
 };

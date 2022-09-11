@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { IBreadcrumbLink } from "../../components/Breadcrumbs";
+import { Heading1 } from "../../components/commons/Headings/Heading1";
 import { Layout } from "../../components/Layout";
 import { LinksTable } from "../../components/LinkTable";
 import { Pagination } from "../../components/Pagination";
@@ -46,7 +47,7 @@ const LinkIndexPage: NextPage = () => {
     <Layout pageTitle="Your URL list" breadCrumbs={breadCrumbs}>
       <div className="flex justify-between">
         <div>
-          <h1 className="text-4xl font-bold">My URLs</h1>
+          <Heading1 text="My URL list" />
         </div>
         <div>
           <Link href="/urls/add">
