@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { config } from "process";
 
 class HttpService {
   private static api = () => {
