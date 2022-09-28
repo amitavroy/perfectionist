@@ -1,6 +1,19 @@
+import Cookies from "js-cookie";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import HttpService from "../../services/http.services";
 
 export const TopNav = () => {
+  const router = useRouter();
+  const handleLogout = async (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
+    try {
+      await HttpService.post("logout", {});
+      Cookies.remove("token");
+      router.push("/");
+    } catch (error) {}
+  };
   return (
     <div className="navbar bg-base-100 shadow rounded">
       <div className="navbar-start">
@@ -83,7 +96,7 @@ export const TopNav = () => {
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <span onClick={handleLogout}>Logout</span>
             </li>
           </ul>
         </div>
