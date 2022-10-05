@@ -34,7 +34,9 @@ class HttpService {
   };
   public static post = async (url: string, data: any) => {
     const api = this.api();
-    return await api.post(url, data);
+    const resp = await api.post(url, data);
+    console.log(resp);
+    return resp;
   };
   public static delete = async (url: string) => {
     const api = this.api();
