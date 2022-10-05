@@ -2,6 +2,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import HttpService from "../../../services/http.services";
+import { setFormikErrors } from "../../../services/utils.service";
 import { FormElement } from "../../commons/FormElement";
 
 interface IValues {
@@ -17,7 +18,7 @@ export const LoginForm = () => {
   };
   const onFormSubmit = async (
     values: IValues,
-    { setSubmitting, resetForm }: FormikHelpers<IValues>
+    { setSubmitting, resetForm, setFieldError }: FormikHelpers<IValues>
   ) => {
     const postData = {
       email: values.email,
@@ -31,7 +32,11 @@ export const LoginForm = () => {
         resetForm();
         router.push("/");
       }
-    } catch (error) {}
+    } catch (error: any) {
+      if (error.response.status === 422) {
+        setFormikErrors(error.response.data.errors, setFieldError);
+      }
+    }
   };
   return (
     <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
