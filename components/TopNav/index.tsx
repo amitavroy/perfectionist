@@ -44,7 +44,9 @@ export const TopNav = () => {
               </Link>
             </li>
             <li>
-              <a>Portfolio</a>
+              <Link href="/collections">
+                <a>Collections</a>
+              </Link>
             </li>
             <li>
               <a>About</a>
