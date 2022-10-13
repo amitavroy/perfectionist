@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     <Layout breadCrumbs={breadCrumbs}>
       <div>
         <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        <Link href={"/urls"}>
+        <Link href={"/collections"}>
           <button className="btn btn-accent">My button</button>
         </Link>
       </div>

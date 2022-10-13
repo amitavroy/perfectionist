@@ -36,6 +36,11 @@ const CollectionIndex: NextPage = () => {
     fetchCollections();
   }, [page]);
 
+  const deleteCollection = async (collection: ICollection) => {
+    await HttpService.delete(`collection/${collection.id}`);
+    await fetchCollections();
+  };
+
   return (
     <Layout pageTitle="List of my collections" breadCrumbs={breadCrumbs}>
       <div className="flex justify-between">
@@ -51,7 +56,10 @@ const CollectionIndex: NextPage = () => {
       {collectionData !== null && (
         <div className="flex flex-col">
           <div className="mt-4">
-            <CollectionTable data={collectionData.data} />
+            <CollectionTable
+              data={collectionData.data}
+              onDelete={deleteCollection}
+            />
           </div>
           {collectionData.total > collectionData.per_page && (
             <div className="flex justify-center">
