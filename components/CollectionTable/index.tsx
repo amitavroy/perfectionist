@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import { ICollection } from "../../interfaces/models/collection.interface";
 import { getLocalDate } from "../../services/utils.service";
@@ -31,7 +32,7 @@ export const CollectionTable: React.FC<Props> = ({ data, onDelete }) => {
                   <td>{collection.name}</td>
                   <td>{getLocalDate(collection.updated_at)}</td>
                   <td>
-                    <div className="flex">
+                    <div className="flex justify-center">
                       <div>
                         <label
                           htmlFor="delete-link"
@@ -40,6 +41,11 @@ export const CollectionTable: React.FC<Props> = ({ data, onDelete }) => {
                         >
                           X
                         </label>
+                      </div>
+                      <div className="pl-4">
+                        <Link href={`/collections/link/add/${collection.id}`}>
+                          <a className="btn btn-sm btn-square btn-primary">+</a>
+                        </Link>
                       </div>
                     </div>
                   </td>

@@ -10,9 +10,10 @@ interface IValues {
 
 interface Props {
   onSuccess: () => void;
+  collectionId: string;
 }
 
-export const UrlAddForm: React.FC<Props> = ({ onSuccess }) => {
+export const UrlAddForm: React.FC<Props> = ({ onSuccess, collectionId }) => {
   const initialValues: IValues = {
     url: "",
   };
@@ -22,6 +23,7 @@ export const UrlAddForm: React.FC<Props> = ({ onSuccess }) => {
   ) => {
     const resp = await HttpService.post("url", {
       url: values.url,
+      collection_id: collectionId,
     });
     resp.status === 201 && resetForm();
     onSuccess();
