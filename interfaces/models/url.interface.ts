@@ -6,4 +6,5 @@ export interface IUrl extends IModel {
   active: boolean;
   failing: boolean;
   failures?: Array<IUrlFailures>;
+  collection_id: number;
 }

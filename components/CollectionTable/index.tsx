@@ -47,6 +47,11 @@ export const CollectionTable: React.FC<Props> = ({ data, onDelete }) => {
                           <a className="btn btn-sm btn-square btn-primary">+</a>
                         </Link>
                       </div>
+                      <div className="pl-4">
+                        <Link href={`/collections/link/view/${collection.id}`}>
+                          <a className="btn btn-sm btn-square btn-primary">V</a>
+                        </Link>
+                      </div>
                     </div>
                   </td>
                 </tr>

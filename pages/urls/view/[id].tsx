@@ -15,13 +15,13 @@ const UrlViewPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  const [url, setUrl] = useState<IUrl | null>(null);
+
   const breadCrumbs: Array<IBreadcrumbLink> = [
     { name: "Home", link: "/" },
-    { name: "URLs", link: "/urls" },
-    { name: "URL view" },
+    { name: "Collections", link: "/collections" },
+    { name: "URLs", link: `/collections/link/view/${url?.collection_id}` },
   ];
-
-  const [url, setUrl] = useState<IUrl | null>(null);
 
   const fetchUrlDetails = async () => {
     const resp = await HttpService.get(`url-failure/${id}`);
