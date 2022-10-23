@@ -13,6 +13,7 @@ const CollectionLinkAddPage: NextPage = () => {
     { name: "Add URL", link: "" },
   ];
   const router = useRouter();
+  const { id } = router.query;
   useEffect(() => {
     setCollectionId(router.query.id?.toString() || null);
   }, [router.query]);
@@ -25,7 +26,7 @@ const CollectionLinkAddPage: NextPage = () => {
         <div className="w-1/2 shadow rounded p-10 bg-white">
           {collectionId != null && (
             <UrlAddForm
-              onSuccess={() => router.push(`/collections`)}
+              onSuccess={() => router.push(`/collections/link/view/${id}`)}
               collectionId={collectionId}
             />
           )}

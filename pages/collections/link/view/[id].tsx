@@ -1,8 +1,10 @@
 import { GetServerSideProps, NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import { IBreadcrumbLink } from "../../../../components/Breadcrumbs";
+import { Heading1 } from "../../../../components/commons/Headings/Heading1";
 import { Layout } from "../../../../components/Layout";
 import { LinksTable } from "../../../../components/LinkTable";
 import { Pagination } from "../../../../components/Pagination";
@@ -29,6 +31,13 @@ const CollectionLinkPage: NextPage = () => {
     resp.status === 200 && setUrlData(resp.data.data);
   };
 
+  const deleteUrl = async (url: IUrl) => {
+    try {
+      await HttpService.delete(`url/${url.id}`);
+      await fetchUrls();
+    } catch (error) {}
+  };
+
   useEffect(() => {
     if (id !== undefined) fetchUrls();
     if (page && page != "")
@@ -40,10 +49,23 @@ const CollectionLinkPage: NextPage = () => {
 
   return (
     <Layout pageTitle="Links for this collection" breadCrumbs={breadCrumbs}>
+      <div className="flex justify-between">
+        <div>
+          <Heading1 text="Links for this collection" />
+        </div>
+        <div>
+          <Link href={`/collections/link/add/${id}`}>
+            <a className="btn btn-primary">Add new link</a>
+          </Link>
+        </div>
+      </div>
       {urlData && urlData != null && (
         <div className="flex flex-col">
           <div className="mt-4">
-            <LinksTable data={urlData?.data} onDelete={() => {}} />
+            <LinksTable
+              data={urlData?.data}
+              onDelete={(url) => deleteUrl(url)}
+            />
           </div>
           {urlData.total > urlData.per_page && (
             <div className="flex justify-center">
