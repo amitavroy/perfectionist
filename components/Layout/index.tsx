@@ -23,7 +23,7 @@ export const Layout: React.FC<Props> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="max-w-7xl m-auto">
+      <main className="max-w-7xl m-auto font-bodyCopy">
         <TopNav />
         {breadCrumbs && (
           <div className="mt-4">

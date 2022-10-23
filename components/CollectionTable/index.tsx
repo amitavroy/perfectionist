@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { Eye, PlusCircle, Trash2 } from "react-feather";
 import { ICollection } from "../../interfaces/models/collection.interface";
 import { getLocalDate } from "../../services/utils.service";
 import { ConfirmationModal } from "../ConfirmationModal";
@@ -33,24 +34,31 @@ export const CollectionTable: React.FC<Props> = ({ data, onDelete }) => {
                   <td>{getLocalDate(collection.updated_at)}</td>
                   <td>
                     <div className="flex justify-center">
+                      {/* View icon */}
+                      <div className="pr-6">
+                        <Link href={`/collections/link/view/${collection.id}`}>
+                          <a>
+                            <Eye />
+                          </a>
+                        </Link>
+                      </div>
+                      {/* Add icon */}
+                      <div className="pr-6">
+                        <Link href={`/collections/link/add/${collection.id}`}>
+                          <a>
+                            <PlusCircle />
+                          </a>
+                        </Link>
+                      </div>
+                      {/* Delete icon */}
                       <div>
                         <label
                           htmlFor="delete-link"
-                          className="btn btn-sm btn-square btn-secondary"
+                          className="cursor-pointer"
                           onClick={() => setToDelete(collection)}
                         >
-                          X
+                          <Trash2 />
                         </label>
-                      </div>
-                      <div className="pl-4">
-                        <Link href={`/collections/link/add/${collection.id}`}>
-                          <a className="btn btn-sm btn-square btn-primary">+</a>
-                        </Link>
-                      </div>
-                      <div className="pl-4">
-                        <Link href={`/collections/link/view/${collection.id}`}>
-                          <a className="btn btn-sm btn-square btn-primary">V</a>
-                        </Link>
                       </div>
                     </div>
                   </td>

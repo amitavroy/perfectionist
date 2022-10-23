@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { Eye, Trash2 } from "react-feather";
 import { IUrl } from "../../interfaces/models/url.interface";
 import { getLocalDate } from "../../services/utils.service";
 import { Badge } from "../Badge";
@@ -48,18 +49,20 @@ export const LinksTable: React.FC<Props> = ({ data, onDelete }) => {
                   <td>{getLocalDate(url.updated_at)}</td>
                   <td>
                     <div className="flex">
-                      <div className="mr-2">
+                      <div className="mr-6">
                         <Link href={`/urls/view/${url.id}`}>
-                          <a className="btn btn-sm btn-square btn-accent">V</a>
+                          <a>
+                            <Eye />
+                          </a>
                         </Link>
                       </div>
                       <div>
                         <label
                           htmlFor="delete-link"
-                          className="btn btn-sm btn-square btn-secondary"
+                          className="cursor-pointer"
                           onClick={() => setToDelete(url)}
                         >
-                          X
+                          <Trash2 />
                         </label>
                       </div>
                     </div>
