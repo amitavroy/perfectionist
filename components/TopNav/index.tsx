@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import AuthService from "../../services/auth.service";
 import HttpService from "../../services/http.services";
 
 export const TopNav = () => {
@@ -10,7 +11,7 @@ export const TopNav = () => {
     event.preventDefault();
     try {
       await HttpService.post("logout", {});
-      Cookies.remove("token");
+      AuthService.removeAuthToken();
       router.push("/");
     } catch (error) {}
   };

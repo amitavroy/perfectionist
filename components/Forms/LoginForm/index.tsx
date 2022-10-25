@@ -1,6 +1,7 @@
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+
+import AuthService from "../../../services/auth.service";
 import HttpService from "../../../services/http.services";
 import { setFormikErrors } from "../../../services/utils.service";
 import { FormElement } from "../../commons/FormElement";
@@ -28,7 +29,7 @@ export const LoginForm = () => {
     try {
       const resp = await HttpService.post("login", postData);
       if (resp.status === 200) {
-        Cookies.set("token", resp.data.token);
+        AuthService.saveAuthToken(resp.data.token);
         resetForm();
         router.push("/");
       }

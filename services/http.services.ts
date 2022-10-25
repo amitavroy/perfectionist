@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import AuthService from "./auth.service";
 
 class HttpService {
   private static api = () => {
@@ -12,6 +13,8 @@ class HttpService {
       (error) => {
         if (error.response.status === 401) {
           console.error("You are not logged in");
+          AuthService.removeAuthToken();
+          window.location.href = "/user/login";
           return Promise.reject();
         }
         return Promise.reject(error);
