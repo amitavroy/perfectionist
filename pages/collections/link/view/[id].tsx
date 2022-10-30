@@ -40,7 +40,7 @@ const CollectionLinkPage: NextPage = () => {
 
   useEffect(() => {
     if (id !== undefined) fetchUrls();
-    if (page && page != "")
+    if (page && page != "" && id !== undefined)
       router.replace({
         pathname: `/collections/link/view/${id}`,
         query: { page },
