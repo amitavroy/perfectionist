@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { Eye, PlusCircle, Trash2 } from "react-feather";
+import { Eye, PlusCircle, Settings, Trash2 } from "react-feather";
 import { ICollection } from "../../interfaces/models/collection.interface";
 import { getLocalDate } from "../../services/utils.service";
 import { ConfirmationModal } from "../ConfirmationModal";
@@ -47,6 +47,14 @@ export const CollectionTable: React.FC<Props> = ({ data, onDelete }) => {
                         <Link href={`/collections/link/add/${collection.id}`}>
                           <a>
                             <PlusCircle />
+                          </a>
+                        </Link>
+                      </div>
+                      {/* Settings icon */}
+                      <div className="pr-6">
+                        <Link href={`/collections/settings/${collection.id}`}>
+                          <a>
+                            <Settings />
                           </a>
                         </Link>
                       </div>
