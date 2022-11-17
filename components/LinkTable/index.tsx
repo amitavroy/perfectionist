@@ -20,6 +20,7 @@ export const LinksTable: React.FC<Props> = ({ data, onDelete }) => {
           <tr>
             <th></th>
             <th>URL</th>
+            <th>Avg resp time</th>
             <th>Status</th>
             <th>Last modified</th>
             <th></th>
@@ -39,6 +40,7 @@ export const LinksTable: React.FC<Props> = ({ data, onDelete }) => {
                       {url.active === true ? "Active" : "Inactive"}
                     </span>
                   </td>
+                  <td>{url.avg_time} ms</td>
                   <td>
                     {url.failing === true ? (
                       <Badge text="Red" badgeType="badge-secondary" />

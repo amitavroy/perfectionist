@@ -1,13 +1,15 @@
-import axios from "axios";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+
 import { IBreadcrumbLink } from "../../../components/Breadcrumbs";
 import { Card } from "../../../components/commons/Card";
 import { Heading1 } from "../../../components/commons/Headings/Heading1";
 import { Heading2 } from "../../../components/commons/Headings/Heading2";
+import ResponseGraph from "../../../components/Graphs/ResponseGraph";
 import { Layout } from "../../../components/Layout";
-import { IUrl } from "../../../interfaces/models/url.interface";
+import { ISuccessResp } from "../../../interfaces/graph.interface";
+import { IUrl, IUrlSuccess } from "../../../interfaces/models/url.interface";
 import HttpService from "../../../services/http.services";
 import { getLocalDate } from "../../../services/utils.service";
 
@@ -16,6 +18,8 @@ const UrlViewPage: NextPage = () => {
   const { id } = router.query;
 
   const [url, setUrl] = useState<IUrl | null>(null);
+  const [success, setSuccess] = useState<Array<IUrlSuccess> | null>(null);
+  const [graphData, setgraphData] = useState<Array<ISuccessResp> | null>(null);
 
   const breadCrumbs: Array<IBreadcrumbLink> = [
     { name: "Home", link: "/" },
@@ -26,6 +30,14 @@ const UrlViewPage: NextPage = () => {
   const fetchUrlDetails = async () => {
     const resp = await HttpService.get(`url-failure/${id}`);
     setUrl(resp.data.data);
+
+    const successResp = await HttpService.get(`url/${id}`);
+    setSuccess(successResp.data.success);
+
+    const graphResp = await HttpService.post(`url/success-resp`, {
+      id,
+    });
+    setgraphData(graphResp.data);
   };
 
   useEffect(() => {
@@ -39,7 +51,7 @@ const UrlViewPage: NextPage = () => {
       </div>
       <div className="mb-4">
         <Card>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-4 mb-4">
             <div>
               <p>
                 <strong>URL link:</strong> {url?.url}
@@ -57,26 +69,60 @@ const UrlViewPage: NextPage = () => {
               </p>
             </div>
           </div>
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <strong>Avg time:</strong> {url?.avg_time}ms
+            </div>
+            <div></div>
+          </div>
         </Card>
       </div>
-      {url && url.failures && url.failures?.length > 0 && (
-        <div className="w-1/4">
-          <Card>
-            <React.Fragment>
-              <Heading2 text="Recent failures" />
-              <ul className="mt-4">
-                {url.failures?.map((fail, index) => {
+
+      <div className="grid grid-cols-4 gap-4">
+        <div className="col-span-1">
+          {url && url.failures && url.failures?.length > 0 && (
+            <div className="mb-4">
+              <Card>
+                <React.Fragment>
+                  <Heading2 text="Recent failures" />
+                  <ul className="mt-4">
+                    {url.failures?.map((fail, index) => {
+                      return (
+                        <li key={fail.id} className="mt-2">
+                          {getLocalDate(fail.created_at)}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </React.Fragment>
+              </Card>
+            </div>
+          )}
+
+          {success != null && success.length > 0 && (
+            <Card>
+              <React.Fragment>
+                <Heading2 text="Recent polls" />
+                {success?.map((s, index) => {
                   return (
-                    <li key={fail.id} className="mt-2">
-                      {getLocalDate(fail.created_at)}
-                    </li>
+                    <div key={s.id} className="mt-2 flex justify-between">
+                      <div>{getLocalDate(s.created_at)}</div>
+                      <div>{s.time}ms</div>
+                    </div>
                   );
                 })}
-              </ul>
-            </React.Fragment>
-          </Card>
+              </React.Fragment>
+            </Card>
+          )}
         </div>
-      )}
+        <div className="col-span-3">
+          {graphData != null && (
+            <Card>
+              <ResponseGraph graphData={graphData} />
+            </Card>
+          )}
+        </div>
+      </div>
     </Layout>
   );
 };

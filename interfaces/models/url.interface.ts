@@ -6,5 +6,12 @@ export interface IUrl extends IModel {
   active: boolean;
   failing: boolean;
   failures?: Array<IUrlFailures>;
+  success?: Array<IUrlSuccess>;
   collection_id: number;
+  avg_time: string;
+}
+
+export interface IUrlSuccess extends IModel {
+  url_id: number;
+  time: string;
 }
