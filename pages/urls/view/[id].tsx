@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { ToggleLeft, ToggleRight } from "react-feather";
 
 import { IBreadcrumbLink } from "../../../components/Breadcrumbs";
 import { Card } from "../../../components/commons/Card";
@@ -40,6 +41,11 @@ const UrlViewPage: NextPage = () => {
     setgraphData(graphResp.data);
   };
 
+  const changeUrlState = async () => {
+    const resp = await HttpService.get(`url/change-status/${id}`);
+    setUrl(resp.data.data);
+  };
+
   useEffect(() => {
     id !== undefined && fetchUrlDetails();
   }, [id]);
@@ -63,10 +69,25 @@ const UrlViewPage: NextPage = () => {
                 {url?.active ? "Active" : "Inactive"}
               </p>
             </div>
-            <div>
-              <p>
+            <div className="flex">
+              <div className="mr-2">
                 <strong>URL is failing:</strong> {url?.failing ? "Yes" : "No"}
-              </p>
+              </div>
+              {url != null && (
+                <div>
+                  {url?.failing ? (
+                    <ToggleLeft
+                      className="text-red-500"
+                      onClick={() => changeUrlState(url?.id)}
+                    />
+                  ) : (
+                    <ToggleRight
+                      className="text-green-500"
+                      onClick={() => changeUrlState(url.id)}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
