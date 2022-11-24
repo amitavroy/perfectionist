@@ -78,12 +78,12 @@ const UrlViewPage: NextPage = () => {
                   {url?.failing ? (
                     <ToggleLeft
                       className="text-red-500"
-                      onClick={() => changeUrlState(url?.id)}
+                      onClick={changeUrlState}
                     />
                   ) : (
                     <ToggleRight
                       className="text-green-500"
-                      onClick={() => changeUrlState(url.id)}
+                      onClick={changeUrlState}
                     />
                   )}
                 </div>
