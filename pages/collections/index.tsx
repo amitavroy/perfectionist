@@ -34,7 +34,7 @@ const CollectionIndex: NextPage = () => {
   useEffect(() => {
     router.push({ pathname: "/collections", query: { page } });
     fetchCollections();
-  }, [page, fetchCollections]);
+  }, [page]);
 
   const deleteCollection = async (collection: ICollection) => {
     await HttpService.delete(`collection/${collection.id}`);
