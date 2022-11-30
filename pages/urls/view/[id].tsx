@@ -46,6 +46,11 @@ const UrlViewPage: NextPage = () => {
     setUrl(resp.data.data);
   };
 
+  const changeUrlFailing = async () => {
+    const resp = await HttpService.get(`url/change-failing/${id}`);
+    setUrl(resp.data.data);
+  };
+
   useEffect(() => {
     id !== undefined && fetchUrlDetails();
   }, [id]);
@@ -63,11 +68,26 @@ const UrlViewPage: NextPage = () => {
                 <strong>URL link:</strong> {url?.url}
               </p>
             </div>
-            <div>
-              <p>
+            <div className="flex">
+              <div className="mr-2">
                 <strong>URL status:</strong>{" "}
                 {url?.active ? "Active" : "Inactive"}
-              </p>
+              </div>
+              {url != null && (
+                <div>
+                  {!url?.active ? (
+                    <ToggleLeft
+                      className="text-red-500"
+                      onClick={changeUrlState}
+                    />
+                  ) : (
+                    <ToggleRight
+                      className="text-green-500"
+                      onClick={changeUrlState}
+                    />
+                  )}
+                </div>
+              )}
             </div>
             <div className="flex">
               <div className="mr-2">
@@ -78,12 +98,12 @@ const UrlViewPage: NextPage = () => {
                   {url?.failing ? (
                     <ToggleLeft
                       className="text-red-500"
-                      onClick={changeUrlState}
+                      onClick={changeUrlFailing}
                     />
                   ) : (
                     <ToggleRight
                       className="text-green-500"
-                      onClick={changeUrlState}
+                      onClick={changeUrlFailing}
                     />
                   )}
                 </div>
