@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { IBreadcrumbLink } from "../../../components/Breadcrumbs";
 import { Heading1 } from "../../../components/commons/Headings/Heading1";
 import { PollFrequencySettingForm } from "../../../components/Forms/PollFrequencySettingForm";
+import { ZulipStreamNameForm } from "../../../components/Forms/ZulipStreamNameForm";
 import { Layout } from "../../../components/Layout";
 import HttpService from "../../../services/http.services";
 
@@ -54,6 +55,12 @@ const CollectionSettingsPage: NextPage = () => {
               collectionFreq={collectionFreqDBVal}
             />
           )}
+        </div>
+      </div>
+
+      <div className="flex justify-start mt-6">
+        <div className="w-4/6 shadow rounded p-10 bg-white">
+          {id && <ZulipStreamNameForm collectionId={id?.toString()} />}
         </div>
       </div>
     </Layout>
