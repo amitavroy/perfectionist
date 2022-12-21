@@ -37,7 +37,7 @@ export const ZulipStreamNameForm: React.FC<Props> = ({ collectionId }) => {
       collection_id: collectionId,
       name: "stream_name",
     });
-    setStreamName(resp.data.data.value);
+    resp.data.data && setStreamName(resp.data.data?.value);
   };
 
   useEffect(() => {
